@@ -22,7 +22,6 @@ function ChatContainer({ role }) {
     };
 
     initInterview();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Handle user responses
