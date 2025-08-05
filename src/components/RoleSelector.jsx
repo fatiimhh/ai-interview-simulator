@@ -7,7 +7,7 @@ function RoleSelector({ onRoleSelect }) {
 
   const handleSelect = (role) => {
     setSelectedRole(role);
-    onRoleSelect(role); // pass role up to parent
+    onRoleSelect(role); 
   };
 
   return (
