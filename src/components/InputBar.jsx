@@ -1,13 +1,32 @@
-export default function InputBar() {
+import React, { useState } from 'react';
+
+function InputBar({ onSend }) {
+  const [input, setInput] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+    onSend(input);
+    setInput('');
+  };
+
   return (
-    <div className="w-full max-w-md flex">
+    <form onSubmit={handleSubmit} className="flex">
       <input
-        className="flex-1 p-2 border border-gray-300 rounded-l"
-        placeholder="Type your response..."
+        type="text"
+        className="flex-grow border border-gray-300 rounded-l px-3 py-2 focus:outline-none"
+        placeholder="Type your answer..."
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
       />
-      <button className="bg-green-600 hover:bg-green-700 text-white px-4 rounded-r">
+      <button
+        type="submit"
+        className="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600"
+      >
         Send
       </button>
-    </div>
+    </form>
   );
 }
+
+export default InputBar;

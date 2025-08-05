@@ -1,8 +1,19 @@
-export default function ChatBox() {
+import React from 'react';
+
+function ChatBox({ messages }) {
   return (
-    <div className="w-full max-w-md bg-white shadow-md rounded p-4 space-y-4">
-      <div className="text-sm text-gray-500">[Interviewer] Tell me about yourself.</div>
-      <div className="text-right text-sm text-gray-800">[You] I'm a frontend developer with a focus on React.</div>
+    <div className="h-80 overflow-y-auto border rounded p-3 mb-4 bg-gray-50">
+      {messages.map((msg, index) => (
+        <div key={index} className={`mb-2 text-sm ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
+          <span className={`inline-block px-3 py-2 rounded-lg ${
+            msg.sender === 'user' ? 'bg-blue-200 text-blue-800' : 'bg-gray-200 text-gray-800'
+          }`}>
+            {msg.text}
+          </span>
+        </div>
+      ))}
     </div>
   );
 }
+
+export default ChatBox;
