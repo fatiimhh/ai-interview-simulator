@@ -3,7 +3,7 @@ import { getGroqReply } from '../utils/groqAPI';
 import InputBar from './InputBar';
 import ChatBox from './ChatBox';
 
-function ChatContainer({ role }) {
+function ChatContainer({ role, onBack  }) {
   const systemPrompt = {
     sender: 'system',
     text: `You are a professional interviewer. Start a mock interview for the role of ${role}. Ask one question at a time. Wait for the user's answer before continuing.`,
@@ -41,6 +41,13 @@ function ChatContainer({ role }) {
 
   return (
     <div>
+      <button
+        className="mb-4 px-3 py-1 rounded bg-gray-300 hover:bg-gray-400"
+        onClick={onBack}
+      >
+        ← Back to Roles
+      </button>
+
       <ChatBox messages={messages} isLoading={isLoading} />
       <InputBar onSend={handleSend} disabled={isLoading} />
     </div>
