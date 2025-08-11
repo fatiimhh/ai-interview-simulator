@@ -11,7 +11,7 @@ function InputBar({ onSend }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex">
+    <form onSubmit={handleSubmit} className="flex gap-2">
       <input
         type="text"
         className="flex-grow border border-gray-300 rounded-l px-3 py-2 focus:outline-none"
@@ -21,7 +21,7 @@ function InputBar({ onSend }) {
       />
       <button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600"
+        className="bg-green-500 text-white px-4 py-2 rounded-r hover:bg-green-600"
       >
         Send
       </button>
