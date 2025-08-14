@@ -3,12 +3,11 @@ import { getGroqReply } from '../utils/groqAPI';
 import InputBar from './InputBar';
 import ChatBox from './ChatBox';
 
-function ChatContainer({ role, onBack  }) {
+function ChatContainer({ role, onBack }) {
   const systemPrompt = {
     sender: 'system',
-    text: `You are a professional interviewer. Start a mock interview for the role of ${role}. Ask one question at a time. Wait for the user's answer before continuing.`,
+    text: `You are a professional interviewer. Start a mock interview for the role of ${role}. Ask one question at a time. Wait for the user's answer before continuing. After each user response, provide concise feedback (1-2 sentences) on how they can improve, then ask the next relevant question.`,
   };
-
 
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +17,7 @@ function ChatContainer({ role, onBack  }) {
     const initInterview = async () => {
       setIsLoading(true);
       const reply = await getGroqReply([systemPrompt], role);
-      setMessages([{ sender: 'ai', text: reply }]);
+      setMessages([{ sender: 'ai', text: reply, type: 'question' }]);
       setIsLoading(false);
     };
 
@@ -35,7 +34,23 @@ function ChatContainer({ role, onBack  }) {
     const messagesForAPI = [systemPrompt, ...newMessages];
 
     const reply = await getGroqReply(messagesForAPI, role);
-    setMessages([...newMessages, { sender: 'ai', text: reply }]);
+
+
+// feedback 
+    // Split feedback & next question if AI includes "Next question:"
+    let feedback = reply;
+    let question = '';
+    const splitIndex = reply.indexOf('Next question:');
+    if (splitIndex !== -1) {
+      feedback = reply.slice(0, splitIndex).trim();
+      question = reply.slice(splitIndex).trim();
+    }
+
+    const aiMessages = [];
+    if (feedback) aiMessages.push({ sender: 'ai', text: feedback, type: 'feedback' });
+    if (question) aiMessages.push({ sender: 'ai', text: question, type: 'question' });
+
+    setMessages([...newMessages, ...aiMessages]);
     setIsLoading(false);
   };
 
