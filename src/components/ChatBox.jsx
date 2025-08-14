@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 function ChatBox({ messages, isLoading }) {
+  const containerRef = useRef(null);
+
+  // Scroll to the bottom whenever messages change
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
-    <div className="h-80 overflow-y-auto border rounded p-3 mb-4 bg-gray-50">
+    <div
+      ref={containerRef}
+      className="h-80 overflow-y-auto border rounded p-3 mb-4 bg-gray-50"
+    >
       {messages.map((msg, index) => (
         <div
           key={index}
