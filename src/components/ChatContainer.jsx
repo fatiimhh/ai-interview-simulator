@@ -6,7 +6,7 @@ import ChatBox from './ChatBox';
 function ChatContainer({ role, onBack }) {
   const systemPrompt = {
     sender: 'system',
-    text: `You are a professional interviewer. Start a mock interview for the role of ${role}. Ask one question at a time. Wait for the user's answer before continuing. After each user response, provide concise feedback (1-2 sentences) on how they can improve, then ask the next relevant question.`,
+    text: `You are a professional interviewer. Start a mock interview for the role of ${role}. Ask one question at a time. Wait for the user's answer before continuing. After each user response, provide concise feedback (1-2 sentences) on how they can improve, then ask the next relevant question. Use "Next question:" before the next question only.`,
   };
 
   const [messages, setMessages] = useState([]);
@@ -17,7 +17,20 @@ function ChatContainer({ role, onBack }) {
     const initInterview = async () => {
       setIsLoading(true);
       const reply = await getGroqReply([systemPrompt], role);
-      setMessages([{ sender: 'ai', text: reply, type: 'question' }]);
+      // Split reply if it contains "Next question:"
+      let feedback = '';
+      let question = reply;
+      const splitIndex = reply.indexOf('Next question:');
+      if (splitIndex !== -1) {
+        feedback = reply.slice(0, splitIndex).trim();
+        question = reply.slice(splitIndex + 'Next question:'.length).trim();
+      }
+
+      const aiMessages = [];
+      if (feedback) aiMessages.push({ sender: 'ai', text: feedback, type: 'feedback' });
+      if (question) aiMessages.push({ sender: 'ai', text: question, type: 'question' });
+
+      setMessages(aiMessages);
       setIsLoading(false);
     };
 
@@ -34,13 +47,13 @@ function ChatContainer({ role, onBack }) {
     const messagesForAPI = [systemPrompt, ...newMessages];
     const reply = await getGroqReply(messagesForAPI, role);
 
-    // Split feedback & next question if AI includes "Next question:"
-    let feedback = reply;
-    let question = '';
+    // Split feedback & next question
+    let feedback = '';
+    let question = reply;
     const splitIndex = reply.indexOf('Next question:');
     if (splitIndex !== -1) {
       feedback = reply.slice(0, splitIndex).trim();
-      question = reply.slice(splitIndex).trim();
+      question = reply.slice(splitIndex + 'Next question:'.length).trim();
     }
 
     const aiMessages = [];
@@ -60,7 +73,6 @@ function ChatContainer({ role, onBack }) {
       text: `You are a professional interviewer. Provide a concise summary of the candidate's performance based on their answers. Highlight strengths and areas for improvement.`,
     };
 
-    // Only pass user messages to the summary
     const userMessages = messages.filter(msg => msg.sender === 'user');
     const messagesForAPI = [summaryPrompt, ...userMessages];
 
