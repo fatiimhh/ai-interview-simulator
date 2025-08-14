@@ -14,6 +14,8 @@ function ChatBox({ messages, isLoading }) {
                 ? 'bg-blue-200 text-blue-800'
                 : msg.type === 'feedback'
                 ? 'bg-yellow-100 text-yellow-900 italic'
+                : msg.type === 'summary'
+                ? 'bg-purple-100 text-purple-900 font-semibold'
                 : 'bg-gray-200 text-gray-800'
             }`}
           >
