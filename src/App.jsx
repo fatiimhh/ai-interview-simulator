@@ -39,7 +39,7 @@ function App() {
     });
   };
 
-  // ✅ Delete chat
+  //  Delete chat
   const deleteChat = (chatId) => {
     setSavedChats(prevChats => {
       const updatedChats = prevChats.filter(chat => chat.id !== chatId);
@@ -78,7 +78,7 @@ function App() {
       <SavedChats 
         savedChats={savedChats} 
         onSelectChat={handleSelectSavedChat} 
-        onDeleteChat={deleteChat}   // ✅ pass delete function
+        onDeleteChat={deleteChat}   // pass delete function
       />
 
       <div className="flex-1 p-4">
