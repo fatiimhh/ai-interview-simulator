@@ -36,4 +36,4 @@ Practice mock interviews with AI! This web app lets you simulate professional in
 
 ## 📄 License
 
-MIT License
+This project is licensed under the **MIT License**.  
