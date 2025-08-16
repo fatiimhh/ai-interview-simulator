@@ -12,7 +12,8 @@
   "test": "jest",
   "test:watch": "jest --watch",
   "predeploy": "npm run build",
-  "deploy": "gh-pages -d dist"
+"deploy": "gh-pages -d build"
+
 },
   
   "dependencies": {
