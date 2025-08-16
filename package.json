@@ -12,7 +12,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
      "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
+     "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "firebase": "^12.1.0",
