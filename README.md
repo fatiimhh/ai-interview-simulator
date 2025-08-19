@@ -2,6 +2,8 @@
 
 Practice mock interviews with AI! This web app lets you simulate professional interviews, get instant feedback, and track your progress over time.
 
+🔗 Live Demo: https://ai-interview-simulator-beta.vercel.app/
+
 ---
 
 ## ✨ Features
@@ -30,6 +32,8 @@ Practice mock interviews with AI! This web app lets you simulate professional in
 - 🔑 Firebase Authentication (Google Sign-in)  
 - 🎨 Tailwind CSS  
 - 📦 JavaScript (ES6+)  
+- 🧪 Unit Tests using Jest + React Testing Library
+- ☁️ Vercel (for hosting & deployment)
 
 ---
 
