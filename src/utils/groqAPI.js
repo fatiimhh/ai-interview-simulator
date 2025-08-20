@@ -1,6 +1,6 @@
 export async function getGroqReply(messages, role = "Software Engineer") {
   try {
-    // build safe payload 
+
     const payload = {
       model: "llama-3.3-70b-versatile",
       messages: [
@@ -18,7 +18,7 @@ export async function getGroqReply(messages, role = "Software Engineer") {
     };
 
     // Debug log 
-    console.log("📤 Sending payload to Groq:", JSON.stringify(payload, null, 2));
+    console.log("Sending payload to Groq:", JSON.stringify(payload, null, 2));
 
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
@@ -37,11 +37,11 @@ export async function getGroqReply(messages, role = "Software Engineer") {
     const data = await response.json();
 
     //Debug Groq response
-    console.log("📥 Groq API response:", data);
+    console.log("Groq API response:", data);
 
-    return data.choices?.[0]?.message?.content || "⚠️ No response from Groq";
+    return data.choices?.[0]?.message?.content || "No response from Groq";
   } catch (error) {
     console.error("Error fetching Groq reply:", error);
-    return "⚠️ Error: Could not get a response from Groq.";
+    return "Error: Could not get a response from Groq.";
   }
 }
