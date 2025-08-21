@@ -29,9 +29,10 @@ Practice mock interviews with AI! This web app lets you simulate professional in
 ## 🛠️ Technologies Used
 
 - ⚛️ React.js  
-- 🔑 Firebase Authentication (Google Sign-in)  
-- 🎨 Tailwind CSS  
 - 📦 JavaScript (ES6+)  
+- 🎨 Tailwind CSS  
+- ⚡ **Groq API** (AI-powered interview simulation)  
+- 🔑 Firebase Authentication (Google Sign-in)  
 - 🧪 Unit Tests using Jest + React Testing Library
 - ☁️ Vercel (for hosting & deployment)
 
